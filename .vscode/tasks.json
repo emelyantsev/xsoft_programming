@@ -1,0 +1,64 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build 01_xping",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "xping.c",
+                "-o",
+                "xping"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//01_xping"
+            },
+        },
+        {
+            "label": "Build 02_tracerudp",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "tracerudp.c",
+                "-o",
+                "tracerudp"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//02_tracerudp"
+            },
+        },
+
+        {
+            "label": "Build 03_tracericmp",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "tracericmp.c",
+                "-o",
+                "tracericmp"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//03_tracericmp"
+            },
+        },
+
+
+        {
+            "label": "Build test util 01",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test01.c",
+                "-o",
+                "test01"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            },
+        }
+    ]
+}

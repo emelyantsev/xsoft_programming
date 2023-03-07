@@ -1,0 +1,38 @@
+--- 01 ---
+
+gcc -g xping.c -o xping
+sudo chown root xping
+sudo chmod +s xping
+
+
+--- 02 ---
+
+gcc -g tracerudp.c -o tracerudp
+
+
+--- 03 ---
+
+gcc -g tracericmp.c -o tracericmp
+
+--- 04 ---
+
+gcc -g icmpflood.c -o icmpflood
+
+--- 05 ---
+
+gcc -g udpstorm.c -o udpstorm
+
+
+--- 06 ---
+
+gcc -g synflood.c -o synflood
+
+--- 07 ---
+
+gcc -g winnuke.c -o winnuke
+
+
+
+------ test utils ----
+
+gcc -g test01.c -o test01
