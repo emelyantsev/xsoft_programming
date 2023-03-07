@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#define PORT 139
+#define PORT 443
 
 int main( int argc, char *argv[] )
 {
