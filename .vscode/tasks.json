@@ -45,6 +45,23 @@
             },
         },
 
+        {
+            "label": "Build ch07_ptscan",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "ptscan.c",
+                "-o",
+                "ptscan",
+                "-lpthread"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//ch07"
+            },
+        },
+
+
 
         {
             "label": "Build test util 01",

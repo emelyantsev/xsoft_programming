@@ -26,6 +26,33 @@
         },
 
         {
+          "name": "C/C++: build and debug ch07_ptscan",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "ch07/ptscan",
+          "args": [
+              "www.ya.ru",
+              "442",
+              "445",
+              "4"
+          ],
+          "stopAtEntry": true,
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": false,
+          "MIMode": "gdb",
+          "miDebuggerPath": "/usr/bin/gdb",
+          "setupCommands": [
+            {
+              "description": "Enable pretty-printing for gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+            }
+          ],
+          "preLaunchTask": "Build ch07_ptscan"
+      },
+
+        {
           "name": "C/C++: build and debug test util 01",
           "type": "cppdbg",
           "request": "launch",
