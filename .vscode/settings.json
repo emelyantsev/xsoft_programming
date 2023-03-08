@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "ip.h": "c"
+        "ip.h": "c",
+        "if_ether.h": "c",
+        "tcp.h": "c",
+        "udp.h": "c",
+        "icmp.h": "c",
+        "in.h": "c",
+        "inet.h": "c"
     }
 }
