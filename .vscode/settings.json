@@ -7,6 +7,11 @@
         "icmp.h": "c",
         "in.h": "c",
         "inet.h": "c",
-        "swab.h": "c"
+        "swab.h": "c",
+        "array": "c",
+        "*.tcc": "c",
+        "algorithm": "c",
+        "random": "c",
+        "numeric": "c"
     }
 }

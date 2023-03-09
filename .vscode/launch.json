@@ -52,7 +52,7 @@
           "preLaunchTask": "Build ch07_ptscan"
       },
 
-        {
+      {
           "name": "C/C++: build and debug test util 01",
           "type": "cppdbg",
           "request": "launch",
@@ -73,6 +73,55 @@
             }
           ],
           "preLaunchTask": "Build test util 01"
-      }
+      },
+
+      {
+        "name": "C/C++: build and debug test util 02",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "test_utils/test02",
+        "args": [
+        ],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "Build test util 02"
+    },
+
+    {
+      "name": "C/C++: build and debug test util 03",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "test_utils/test03",
+      "args": [
+        "845",
+        "3"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build test util 03"
+  },
+      
     ]
 }
