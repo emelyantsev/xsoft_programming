@@ -6,6 +6,7 @@
         "udp.h": "c",
         "icmp.h": "c",
         "in.h": "c",
-        "inet.h": "c"
+        "inet.h": "c",
+        "swab.h": "c"
     }
 }
