@@ -38,6 +38,11 @@ gcc -g winnuke.c -o winnuke
 
 gcc ptscan.c -o ptscan -lpthread
 
+--- Chapter 09 ----
+
+gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --libs` `libnet-config --cflags`
+
+
 
 -------------------
 
