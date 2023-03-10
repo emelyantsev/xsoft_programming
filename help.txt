@@ -49,3 +49,23 @@ gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --
 ------ test utils ----
 
 gcc -g test01.c -o test01
+
+
+
+
+------Appendix A Sockets ----------
+
+    ---- Build lib ----------------
+
+    sh Build_ename.sh > ename.c.inc
+
+    gcc -c error_functions.c -o error_functions.o
+    gcc -c get_num.c -o get_num.o
+
+    ar rcs libcommon.a error_functions.o get_num.o
+
+    -------------------------------
+
+gcc us_xfr_cl.c -g -L../lib -I../lib -lcommon -o us_xfr_cl
+gcc us_xfr_sv.c -g -L../lib -I../lib -lcommon -o us_xfr_sv
+

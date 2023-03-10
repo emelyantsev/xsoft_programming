@@ -12,6 +12,7 @@
         "*.tcc": "c",
         "algorithm": "c",
         "random": "c",
-        "numeric": "c"
+        "numeric": "c",
+        "us_xfr.h": "c"
     }
 }
