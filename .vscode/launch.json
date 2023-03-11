@@ -124,6 +124,28 @@
     },
 
     {
+      "name": "C/C++: build and debug test util 04",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "test_utils/test04",
+      "args": [
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+
+    {
       "name": "C/C++: build and debug UnixDomain stream client",
       "type": "cppdbg",
       "request": "launch",
