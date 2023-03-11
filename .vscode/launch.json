@@ -166,6 +166,28 @@
         }
       ]
     },
+
+    {
+      "name": "C/C++: build and debug UnixDomain datagram client",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "A_Sockets/ch57_02/ud_ucase_cl",
+      "args": [ "sun", "moon", "earth", "god"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
       
     ]
 }
