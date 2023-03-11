@@ -106,6 +106,21 @@
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
             },
+        },
+
+        {
+            "label": "Build test util 05",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test05.c",
+                "-o",
+                "test05"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            },
         }
     ]
 }

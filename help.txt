@@ -51,6 +51,7 @@ gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --
 gcc -g test01.c -o test01
 
 gcc -g test04.c -o test04
+gcc -g test05.c -o test05
 
 
 ------Appendix A Sockets ----------
