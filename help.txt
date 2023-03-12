@@ -38,10 +38,18 @@ gcc -g winnuke.c -o winnuke
 
 gcc ptscan.c -o ptscan -lpthread
 
+
 --- Chapter 09 ----
 
 gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --libs` `libnet-config --cflags`
 
+
+
+---- Chapter 10 ----
+
+gcc -g bruteshadow.c -o bruteshadow -lcrypt
+
+https://www.cyberciti.biz/faq/understanding-etcshadow-file/
 
 
 -------------------
@@ -49,9 +57,9 @@ gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --
 ------ test utils ----
 
 gcc -g test01.c -o test01
-
 gcc -g test04.c -o test04
 gcc -g test05.c -o test05
+gcc -g test06.c -o test06 -lcrypt
 
 
 ------Appendix A Sockets ----------

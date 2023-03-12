@@ -13,7 +13,7 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//01_xping"
-            },
+            }
         },
         {
             "label": "Build 02_tracerudp",
@@ -27,9 +27,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//02_tracerudp"
-            },
+            }
         },
-
         {
             "label": "Build 03_tracericmp",
             "type": "cppbuild",
@@ -42,9 +41,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//03_tracericmp"
-            },
+            }
         },
-
         {
             "label": "Build ch07_ptscan",
             "type": "cppbuild",
@@ -58,11 +56,28 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//ch07"
-            },
+            }
         },
-
-
-
+        {
+            "label": "Build ch10_bruteshadow",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "bruteshadow.c",
+                "-o",
+                "bruteshadow",
+                "-lcrypt"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//ch10"
+            },
+            "detail": "compiler: gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
         {
             "label": "Build test util 01",
             "type": "cppbuild",
@@ -75,9 +90,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
-            },
+            }
         },
-
         {
             "label": "Build test util 02",
             "type": "cppbuild",
@@ -90,9 +104,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
-            },
+            }
         },
-
         {
             "label": "Build test util 03",
             "type": "cppbuild",
@@ -105,9 +118,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
-            },
+            }
         },
-
         {
             "label": "Build test util 05",
             "type": "cppbuild",
@@ -120,7 +132,7 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
-            },
+            }
         }
     ]
 }
