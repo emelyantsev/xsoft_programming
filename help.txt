@@ -51,6 +51,10 @@ gcc -g bruteshadow.c -o bruteshadow -lcrypt
 
 https://www.cyberciti.biz/faq/understanding-etcshadow-file/
 
+gcc -g brutesymbol.c -o brutesymbol 
+
+gcc -g brutebase64.c -o brutebase64 
+
 
 -------------------
 
