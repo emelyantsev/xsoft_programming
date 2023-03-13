@@ -120,6 +120,7 @@
                 "cwd": "${workspaceFolder}//test_utils"
             }
         },
+
         {
             "label": "Build test util 05",
             "type": "cppbuild",
@@ -133,6 +134,22 @@
             "options": {
                 "cwd": "${workspaceFolder}//test_utils"
             }
-        }
+        },
+
+        {
+            "label": "Build test util 07",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test07.c",
+                "-o",
+                "test07",
+                "-lssh"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            }
+        },
     ]
 }

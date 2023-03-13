@@ -55,6 +55,9 @@ gcc -g brutesymbol.c -o brutesymbol
 
 gcc -g brutebase64.c -o brutebase64 
 
+https://github.com/koolwithk/devops-tools/tree/main/docker/httpd-basic-auth
+
+gcc brute_ssl.c -o brute_ssl -lssl -lcrypto
 
 -------------------
 
@@ -64,6 +67,7 @@ gcc -g test01.c -o test01
 gcc -g test04.c -o test04
 gcc -g test05.c -o test05
 gcc -g test06.c -o test06 -lcrypt
+gcc -g test07.c -o test07 -lssh
 
 
 ------Appendix A Sockets ----------

@@ -13,6 +13,11 @@
         "algorithm": "c",
         "random": "c",
         "numeric": "c",
-        "us_xfr.h": "c"
+        "us_xfr.h": "c",
+        "ssl.h": "c",
+        "libssh.h": "c",
+        "socket.h": "c",
+        "types.h": "c",
+        "stdlib.h": "c"
     }
 }
