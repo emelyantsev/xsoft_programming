@@ -59,6 +59,16 @@ https://github.com/koolwithk/devops-tools/tree/main/docker/httpd-basic-auth
 
 gcc brute_ssl.c -o brute_ssl -lssl -lcrypto
 
+To generate a certificate
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout xstorage32.key -out xstorage32.crt
+
+https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html
+https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-20-04
+https://serverfault.com/questions/127708/how-to-configure-basic-authentication-in-apache-httpd-virtual-hosts
+
+
+
 -------------------
 
 ------ test utils ----

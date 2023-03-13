@@ -1,4 +1,3 @@
-aleksey
 admin
 administrator
 test

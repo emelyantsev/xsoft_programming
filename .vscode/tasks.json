@@ -79,6 +79,27 @@
             }
         },
         {
+            "label": "Build ch10_brute_ssl",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "brute_ssl.c",
+                "-o",
+                "brute_ssl",
+                "-lssl",
+                "-lcrypto"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//ch10"
+            },
+            "detail": "compiler: gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Build test util 01",
             "type": "cppbuild",
             "command": "gcc",

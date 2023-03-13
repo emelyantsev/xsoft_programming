@@ -99,6 +99,30 @@
       },
 
       {
+        "name": "C/C++: build and debug ch10_brute_ssl",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "ch10/brute_ssl",
+        "args": [
+          "localhost"
+        ],
+        "stopAtEntry": true,
+        "cwd": "${workspaceFolder}/",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "Build ch10_brute_ssl"
+      },
+
+      {
           "name": "C/C++: build and debug test util 01",
           "type": "cppdbg",
           "request": "launch",
