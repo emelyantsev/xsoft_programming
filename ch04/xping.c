@@ -15,7 +15,7 @@
 #define BUFSIZE 1500
 
 int sd;                      /* дескриптор сокета */
-pid_t pid;                   /* идентификатор нашего процесса PID */
+uint16_t pid;                   /* идентификатор нашего процесса PID */
 struct sockaddr_in servaddr; /* структура sockaddr() для отправки пакета */
 struct sockaddr_in from;     /* структура sockaddr() для получения пакета */
 
@@ -90,6 +90,15 @@ int main(int argc, char *argv[])
   setsockopt(sd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size));
 
 
+  	
+  bzero(&servaddr, sizeof(servaddr));
+  servaddr.sin_family = AF_INET;
+  servaddr.sin_addr= *((struct in_addr *) hp->h_addr);
+
+  fromlen = sizeof(from);
+
+
+
   /* запускаем интервальный таймер, посылающий сигнал SIGALRM */
   /* таймер сработает через 1 микросекунду... */
   timer.it_value.tv_sec=0;
@@ -99,18 +108,13 @@ int main(int argc, char *argv[])
   timer.it_interval.tv_usec=0;
   /* запуск таймера реального времени */
   setitimer(ITIMER_REAL, &timer, NULL);
-	
-  bzero(&servaddr, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_addr= *((struct in_addr *) hp->h_addr);
 
-  fromlen = sizeof(from);
  
   /* запускаем бесконечный цикл, в котором будем принимать пакеты */
   while ( 1 ) {
 
     n = recvfrom(sd, recvbuf, sizeof(recvbuf), 0, 
-		(struct sockaddr *)&from, &fromlen);
+		(struct sockaddr *) &from, &fromlen);
 		
     if (n < 0) {
       if (errno == EINTR)
@@ -151,8 +155,11 @@ void output(char *ptr, int len, struct timeval *tvrecv)
 
   if (icmp->icmp_type == ICMP_ECHOREPLY) {
   
-    if (icmp->icmp_id != pid)
+    if (icmp->icmp_id != pid) {
+
+      printf("Wrong id %d\n", icmp->icmp_id) ;
       return; /* ответ не на наш запрос ECHO REQUEST */
+    }
 
     tvsend = (struct timeval *) icmp->icmp_data;
     tv_sub(tvrecv, tvsend);

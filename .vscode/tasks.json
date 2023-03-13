@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build 01_xping",
+            "label": "Build ch04_xping",
             "type": "cppbuild",
             "command": "gcc",
             "args": [
@@ -12,7 +12,7 @@
                 "xping"
             ],
             "options": {
-                "cwd": "${workspaceFolder}//01_xping"
+                "cwd": "${workspaceFolder}//ch04"
             }
         },
         {

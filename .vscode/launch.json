@@ -3,10 +3,10 @@
     "configurations": [
 
         {
-            "name": "C/C++: build and debug 01_xping",
+            "name": "C/C++: build and debug ch04_xping",
             "type": "cppdbg",
             "request": "launch",
-            "program": "01_xping/xping",
+            "program": "ch04/xping",
             "args": [
                 "www.ya.ru"
             ],
@@ -15,7 +15,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerPath": "${workspaceFolder}/bin/sudo_gdb.sh",
             "setupCommands": [
               {
                 "description": "Enable pretty-printing for gdb",

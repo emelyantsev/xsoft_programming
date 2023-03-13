@@ -18,6 +18,7 @@
         "libssh.h": "c",
         "socket.h": "c",
         "types.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "ip_icmp.h": "c"
     }
 }
