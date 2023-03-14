@@ -326,6 +326,28 @@
         }
       ]
     },
+
+    {
+      "name": "C/C++: build and debug IPv6 datagram client",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "A_Sockets/ch59_01/i6d_ucase_cl",
+      "args": [ "::1", "sun", "moon", "earth", "god"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
       
     ]
 }
