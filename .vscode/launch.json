@@ -373,6 +373,29 @@
         }
       ]
     },
+
+    {
+      "name": "C/C++: build and debug gethostbyname tool",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "A_Sockets/ch59_03/t_gethostbyname",
+      "args": [ "ya.ru", "google.com"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
       
     ]
 }
