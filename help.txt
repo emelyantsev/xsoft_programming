@@ -93,6 +93,22 @@ gcc -g test07.c -o test07 -lssh
 
     -------------------------------
 
+
 gcc us_xfr_cl.c -g -L../lib -I../lib -lcommon -o us_xfr_cl
 gcc us_xfr_sv.c -g -L../lib -I../lib -lcommon -o us_xfr_sv
 
+
+
+----------- Ch59 02 -------------
+
+gcc -c -fPIC read_line.c -o read_line.o
+gcc -shared read_line.o -o libreadline.so
+
+gcc -c is_seqnum_cl.c -o is_seqnum_cl.o -I../lib
+gcc -c is_seqnum_sv.c -o is_seqnum_sv.o -I../lib
+
+gcc -g is_seqnum_cl.c -L../lib -L. -I../lib -lcommon -lreadline -o is_seqnum_cl
+gcc -g is_seqnum_sv.c -L../lib -L. -I../lib -lcommon -lreadline -o is_seqnum_sv
+
+
+https://renenyffenegger.ch/notes/development/languages/C-C-plus-plus/GCC/create-libraries/index
