@@ -69,6 +69,11 @@ https://serverfault.com/questions/127708/how-to-configure-basic-authentication-i
 
 
 
+---- Chapter 11 ----
+
+gcc -g bindshell.c -o bindshell
+
+
 -------------------
 
 ------ test utils ----
