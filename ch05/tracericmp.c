@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +16,7 @@
 
 int sd;   
  /* дескриптор сокета */
-pid_t pid;
+uint16_t pid;
  /* идентификатор нашего процесса PID */
 struct sockaddr_in sasend;
  /* структура sockaddr() для отправки пакета */
@@ -198,15 +200,15 @@ int output(int seq, struct timeval *tv)
     icmp = (struct icmp *) (recvbuf + hlen1); /* начало ICMP-заголовка */
 
     
-if (icmp->icmp_type == ICMP_TIMXCEED && icmp->icmp_code == ICMP_TIMXCEED_INTRANS) {
+    if (icmp->icmp_type == ICMP_TIMXCEED && icmp->icmp_code == ICMP_TIMXCEED_INTRANS) {
 
-      hip = (struct ip *)(recvbuf + hlen1 + 8);
-      hlen2 = hip->ip_hl << 2;
-      hicmp = (struct icmp *) (recvbuf + hlen1 + 8 + hlen2);
+          hip = (struct ip *)(recvbuf + hlen1 + 8);
+          hlen2 = hip->ip_hl << 2;
+          hicmp = (struct icmp *) (recvbuf + hlen1 + 8 + hlen2);
+        
+          if (hicmp->icmp_id == pid && hicmp->icmp_seq == seq)
     
-      if (hicmp->icmp_id == pid && hicmp->icmp_seq == seq)
- 
-        return (-2);
+            return (-2);
     }
 
     if (icmp->icmp_type == ICMP_ECHOREPLY && icmp->icmp_id == pid && icmp->icmp_seq == seq)

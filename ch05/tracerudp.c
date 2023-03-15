@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,14 +29,19 @@ char sendbuf[BUFSIZE];
 
 int sendfd; /* дескриптор сокета для отправки UDP-дейтаграмм */
 int recvfd; /* дескриптор сырого сокета для приема ICMP-сообщений */
+
 struct sockaddr_in sasend;
  /* структура sockaddr() для отправки пакета */
+
 struct sockaddr_in sabind;
  /* структура sockaddr() для связывания порта отправителя */
+
 struct sockaddr_in sarecv;
  /* структура sockaddr() для получения пакета */
+
 struct sockaddr_in salast;
  /* последняя структура sockaddr() для получения */
+
 int sport;
 int dport;
 
@@ -85,7 +92,7 @@ int main(int argc, char *argv[])
   }
 
   /* восстановление исходных прав */
-  setuid(getuid());
+  setuid( getuid() );
 
   if ( (sendfd = socket(PF_INET, SOCK_DGRAM, 0)) < 0) {
     perror("socket() failed");
@@ -123,7 +130,7 @@ int main(int argc, char *argv[])
       outdata->outdata_seq = ++seq;
       outdata->outdata_ttl = ttl;
       
-      gettimeofday(&outdata->outdata_tv, NULL);
+      gettimeofday( &outdata->outdata_tv, NULL);
     
       sasend.sin_port = htons(dport + seq);
 
@@ -133,15 +140,16 @@ int main(int argc, char *argv[])
         exit(-1);
       }
 
-      if ( (code = packet_ok(seq, &tvrecv)) == -3)
+      if ( (code = packet_ok(seq, &tvrecv) ) == -3 )
  
         printf(" *"); /* истечение времени ожидания, нет ответа */
         
       else {
 
-        if ( memcmp(&sarecv.sin_addr, &salast.sin_addr, sizeof(sarecv.sin_addr)) != 0) {
+        if ( memcmp( &sarecv.sin_addr, &salast.sin_addr, sizeof(sarecv.sin_addr) ) != 0 ) {
  
-          if ( (hp = gethostbyaddr(&sarecv.sin_addr, sizeof(sarecv.sin_addr), sarecv.sin_family)) != 0)
+          if ( ( hp = gethostbyaddr(&sarecv.sin_addr, sizeof(sarecv.sin_addr), sarecv.sin_family) ) != 0)
+
             printf(" %s (%s)", inet_ntoa(sarecv.sin_addr), hp->h_name);
           else
             printf(" %s", inet_ntoa(sarecv.sin_addr));
@@ -204,7 +212,7 @@ int packet_ok(int seq, struct timeval *tv)
     FD_SET(recvfd, &fds);
 
     if (select(recvfd+1, &fds, NULL, NULL, &wait) > 0)
-      n = recvfrom(recvfd, recvbuf, sizeof(recvbuf), 0, (struct sockaddr*)&sarecv, &len);
+      n = recvfrom(recvfd, recvbuf, sizeof(recvbuf), 0, (struct sockaddr*) &sarecv, &len);
     else if (!FD_ISSET(recvfd, &fds))
       return (-3);
     else
@@ -241,8 +249,6 @@ int packet_ok(int seq, struct timeval *tv)
   }	
 
 }
-
-
 
 /*---------------------------------*/
 /* Вычитание двух timeval структур */
