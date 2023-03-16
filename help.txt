@@ -73,7 +73,8 @@ https://serverfault.com/questions/127708/how-to-configure-basic-authentication-i
 
 gcc -g bindshell.c -o bindshell
 gcc -g conback.c -o conback
-
+gcc -g bd_icmp.c -o bd_icmp
+gcc -g icmpsend.c -o icmpsend
 
 -------------------
 
