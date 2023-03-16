@@ -6,7 +6,6 @@
                 "${default}",
                 "${workspaceFolder}/A_Sockets/lib"
             ],
-            "defines": ["LINUX"],
             "intelliSenseMode": "linux-clang-x64"
         }
     ],

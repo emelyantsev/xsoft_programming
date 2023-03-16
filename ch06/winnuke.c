@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -22,7 +24,7 @@ int main( int argc, char *argv[] )
     exit(-1);
   }
 
-  hp = gethostbyname(argv[1]); 
+  hp = gethostbyname( argv[1] ); 
 
   if (hp == NULL) {
 
@@ -38,10 +40,11 @@ int main( int argc, char *argv[] )
 
   bzero(&winaddr, sizeof(winaddr));
   winaddr.sin_family = AF_INET;
-  winaddr.sin_port = htons(PORT);
+  winaddr.sin_port = htons( PORT );
   winaddr.sin_addr = *( (struct in_addr *) hp->h_addr );
 
   if ( connect(sd, (struct sockaddr *) &winaddr, sizeof(winaddr)) < 0) {
+    
     perror("connect() failed");
     exit(-1);
   }

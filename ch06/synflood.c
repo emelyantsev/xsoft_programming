@@ -56,10 +56,7 @@ unsigned short in_cksum(unsigned short *addr, int len)
 /*--------------------------------*/
 /* Формирование и отправка пакета */
 /*--------------------------------*/
-void sendpacket(int sockd, unsigned long srcaddr, 
-		 unsigned long dstaddr, 
-		 int sport, 
-		 int dport)
+void sendpacket(int sockd, unsigned long srcaddr, unsigned long dstaddr, int sport, int dport )
 {
 
   struct sockaddr_in servaddr;
@@ -75,10 +72,11 @@ void sendpacket(int sockd, unsigned long srcaddr,
   } pseudo_hdr;
 
   char sendbuf[sizeof(struct iphdr) + sizeof(struct tcphdr)];
+  
   struct iphdr *ip_hdr = (struct iphdr *) sendbuf;
   struct tcphdr *tcp_hdr = (struct tcphdr *) (sendbuf + sizeof(struct iphdr));
-  unsigned char *
-pseudo_packet; /* указатель на псевдопакет */
+  
+  unsigned char * pseudo_packet; /* указатель на псевдопакет */
 
   /* заполняем IP-заголовок */
   ip_hdr->ihl = 5;
@@ -104,7 +102,7 @@ pseudo_packet; /* указатель на псевдопакет */
   /* заполняем TCP-заголовок */
   tcp_hdr->source = htons(sport);
   tcp_hdr->dest = htons(dport);
-  tcp_hdr->seq = htons(getpid());
+  tcp_hdr->seq = htons( getpid() );
   tcp_hdr->ack_seq = 0;
   tcp_hdr->res1 = 0;
   tcp_hdr->doff = 5;
@@ -121,39 +119,40 @@ pseudo_packet; /* указатель на псевдопакет */
   tcp_hdr->urg_ptr = 0;
 
   /* выделяем место в памяти для формирования псевдопакета */
-  if ( (pseudo_packet = (char*) malloc(sizeof(pseudo_hdr) + 
-       sizeof(struct tcphdr))) == NULL) {
+  if ( ( pseudo_packet = (char*) malloc( sizeof(pseudo_hdr) + sizeof(struct tcphdr) ) ) == NULL ) {
+    
     perror("malloc() failed");
     exit(-1);
   }
 
   /* копируем псевдозаголовок в начало псевдопакета */
-  memcpy(pseudo_packet, &pseudo_hdr, sizeof(pseudo_hdr));
+  memcpy( pseudo_packet, &pseudo_hdr, sizeof(pseudo_hdr) );
   
   /* затем копируем TCP-заголовок */
-  memcpy(pseudo_packet + sizeof(pseudo_hdr), sendbuf + 
-	 sizeof(struct iphdr), sizeof(struct tcphdr));
+  memcpy(pseudo_packet + sizeof(pseudo_hdr), sendbuf + sizeof(struct iphdr), sizeof(struct tcphdr));
 
   /* теперь можно вычислить контрольную сумму в TCP-заголовке */
-  tcp_hdr->check = in_cksum( (unsigned short *) pseudo_packet, 
-                   sizeof(pseudo_hdr) + sizeof(struct tcphdr));
+  tcp_hdr->check = in_cksum( (unsigned short *) pseudo_packet, sizeof(pseudo_hdr) + sizeof(struct tcphdr));
 
-  bzero(&servaddr, sizeof(servaddr));
+  bzero( &servaddr, sizeof(servaddr) );
+
   servaddr.sin_family = AF_INET;
   servaddr.sin_port = htons(dport);
   servaddr.sin_addr.s_addr = dstaddr;
 
   /* отправляем пакет */
-  if (sendto(sockd, 
- 	     sendbuf,
-	     sizeof(sendbuf), 
-	     0, 
-	     (struct sockaddr *)&servaddr, 
-	     sizeof(servaddr)) < 0) {
+  if ( sendto(sockd, 
+              sendbuf,
+              sizeof(sendbuf), 
+              0, 
+              (struct sockaddr *)&servaddr, 
+              sizeof(servaddr)
+              ) < 0
+       ) 
+  {
     perror("sendto() failed");
     exit(-1);
   }
-
 }
 
 /*------------------------*/
@@ -170,16 +169,16 @@ int main(int argc, char *argv[])
   int rnd_port = 0;  
 
   if (argc != 5)
- {
-    fprintf(stderr,
+  { 
+    fprintf( stderr,
     "Usage: %s <source address | random> <source port | random> <destination address> <destination port>\n", 
-    argv[0]);
+    argv[0] );
     exit(-1);
   }
 
   /* создаем raw-сокет */
   if ( (sd = socket(PF_INET, SOCK_RAW, IPPROTO_RAW)) < 0)
- {
+  {
     perror("socket() failed");
     exit(-1);
   }
@@ -187,7 +186,7 @@ int main(int argc, char *argv[])
   /* так как будем самостоятельно заполнять IP-заголовок, то 
   устанавливаем опцию IP_HDRINCL */
   if (setsockopt(sd, IPPROTO_IP, IP_HDRINCL, (char *)&on, sizeof(on)) < 0)
- {
+  {
     perror("setsockopt() failed");
     exit(-1);
   }
@@ -202,7 +201,7 @@ int main(int argc, char *argv[])
 
   /* если во втором аргументе командной строки указано random, то
   порт источника выбирается случайным образом */
-  if (!strcmp(argv[2], "random")) {
+  if ( !strcmp(argv[2], "random") ) {
     rnd_port = 1;
     port_src = rand() % 65536;
   } else

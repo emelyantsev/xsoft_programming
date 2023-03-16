@@ -1,36 +1,26 @@
---- 01 ---
+--- Chapter 04 ---
 
 gcc -g xping.c -o xping
 sudo chown root xping
 sudo chmod +s xping
 
 
---- 02 ---
+--- Chapter 05 ---
 
 gcc -g tracerudp.c -o tracerudp
-
-
---- 03 ---
-
 gcc -g tracericmp.c -o tracericmp
 
---- 04 ---
+
+
+--- Chapter 06 ---
 
 gcc -g icmpflood.c -o icmpflood
-
---- 05 ---
-
 gcc -g udpstorm.c -o udpstorm
-
-
---- 06 ---
-
 gcc -g synflood.c -o synflood
-
---- 07 ---
-
 gcc -g winnuke.c -o winnuke
-
+gcc -g teardrop.c -o teardrop
+gcc -g bonk.c -o bonk
+gcc -g win95ping.c -o win95ping
 
 
 
@@ -119,3 +109,7 @@ gcc -g is_seqnum_sv.c -L../lib -L. -I../lib -lcommon -lreadline -o is_seqnum_sv
 
 
 https://renenyffenegger.ch/notes/development/languages/C-C-plus-plus/GCC/create-libraries/index
+
+
+
+"defines": ["LINUX"],

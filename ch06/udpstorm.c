@@ -15,12 +15,12 @@ unsigned long resolve(char *hostname)
 {
   struct hostent *hp;
 
-  if ( (hp = gethostbyname(hostname)) == NULL) {
+  if ( ( hp = gethostbyname(hostname) ) == NULL ) {
     herror("gethostbyname() failed");
     exit(-1);
   }
 
-  return *(unsigned long *)hp->h_addr_list[0];
+  return *(unsigned long *) hp->h_addr_list[0];
 }
 
 /*------------------------------*/
@@ -74,13 +74,13 @@ int main(int argc, char *argv[])
   } pseudo_hdr;
 
   char sendbuf[sizeof(struct iphdr) + sizeof(struct udphdr)];
-  struct iphdr *ip_hdr = (struct iphdr *)sendbuf;
-  struct udphdr *udp_hdr = (struct udphdr *) (sendbuf + sizeof(struct iphdr));
+  struct iphdr *ip_hdr = (struct iphdr *) sendbuf;
+  struct udphdr *udp_hdr = (struct udphdr *) (sendbuf + sizeof(struct iphdr) );
   unsigned char *pseudo_packet;
  /* указатель на псевдопакет */
 
   if (argc != 5)
- {
+  {
     fprintf(stderr,
     "Usage: %s <source address> <source port> <destination address> <destination port>\n", 
     argv[0]);
@@ -90,14 +90,14 @@ int main(int argc, char *argv[])
 
   /* создаем raw-сокет */
   if ( (sd = socket(PF_INET, SOCK_RAW, IPPROTO_RAW)) < 0)
- {
+  {
     perror("socket() failed");
     exit(-1);
   }
 
   /* так как будем самостоятельно заполнять IP-заголовок,
   то устанавливаем опцию IP_HDRINCL */
-  if (setsockopt(sd, IPPROTO_IP, IP_HDRINCL, (char *) &on, sizeof(on)) < 0)
+  if (setsockopt(sd, IPPROTO_IP, IP_HDRINCL, (char *) &on, sizeof(on) ) < 0)
  {
     perror("setsockopt() failed");
     exit(-1);
@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
   ip_hdr->ttl = 255;
   ip_hdr->protocol = IPPROTO_UDP;
   ip_hdr->check = 0;
-  ip_hdr->check = in_cksum((unsigned short *)ip_hdr, sizeof(struct iphdr));
+  ip_hdr->check = in_cksum( (unsigned short *) ip_hdr, sizeof(struct iphdr) );
   
   ip_hdr->saddr = srcaddr;
   ip_hdr->daddr = dstaddr;
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
   pseudo_hdr.dest_address = dstaddr;
   pseudo_hdr.place_holder = 0;
   pseudo_hdr.protocol = IPPROTO_UDP;
-  pseudo_hdr.length = htons(sizeof(struct udphdr));
+  pseudo_hdr.length = htons(sizeof(struct udphdr) );
  
   /* заполняем UDP-заголовок */
   udp_hdr->source = htons(sport);
@@ -154,26 +154,28 @@ int main(int argc, char *argv[])
   }
   
   /* копируем псевдозаголовок в начало псевдопакета */
-  memcpy(pseudo_packet, &pseudo_hdr, sizeof(pseudo_hdr));
+  memcpy(pseudo_packet, &pseudo_hdr, sizeof(pseudo_hdr) );
   
   /* затем копируем UDP-заголовок */
-  memcpy(pseudo_packet + sizeof(pseudo_hdr), sendbuf + sizeof(struct iphdr), sizeof(struct udphdr));
+  memcpy(pseudo_packet + sizeof(pseudo_hdr), sendbuf + sizeof(struct iphdr), sizeof(struct udphdr) );
  
   /* теперь можно вычислить контрольную сумму в UDP-заголовке */
-  if ( (udp_hdr->check = in_cksum((unsigned short *) pseudo_packet, 
-        sizeof(pseudo_hdr) + sizeof(struct udphdr))) == 0)
+  if ( (udp_hdr->check = in_cksum((unsigned short *) pseudo_packet, sizeof(pseudo_hdr) + sizeof(struct udphdr))) == 0)
 
     udp_hdr->check = 0xffff;
 
   /* в бесконечном цикле отправляем пакеты */
   while (1) {
 
-    if (sendto(sd, 
-               sendbuf, 
-  	       sizeof(sendbuf), 
-	       0, 
-	       (struct sockaddr *) &servaddr, 
-	       sizeof(servaddr))  < 0) {
+    if (sendto( sd, 
+                sendbuf, 
+  	            sizeof(sendbuf), 
+	              0, 
+	              (struct sockaddr *) &servaddr, 
+	              sizeof(servaddr)
+                )  < 0) 
+    {
+
       perror("sendto() failed");
       exit(-1);
     

