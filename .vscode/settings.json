@@ -20,6 +20,12 @@
         "types.h": "c",
         "stdlib.h": "c",
         "ip_icmp.h": "c",
-        "netdb.h": "c"
+        "netdb.h": "c",
+        "signal.h": "c",
+        "syslog.h": "c",
+        "tlpi_hdr.h": "c",
+        "become_daemon.h": "c",
+        "inet_sockets.h": "c",
+        "signal_ext.h": "c"
     }
 }
