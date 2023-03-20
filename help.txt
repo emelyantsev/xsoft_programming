@@ -108,6 +108,11 @@ gcc -g is_seqnum_cl.c -L../lib -L. -I../lib -lcommon -lreadline -o is_seqnum_cl
 gcc -g is_seqnum_sv.c -L../lib -L. -I../lib -lcommon -lreadline -o is_seqnum_sv
 
 
+---------- Ch 60 -----------------
+
+gcc is_echo_inetd_sv.c -o is_echo_inetd_sv -g
+
+
 https://renenyffenegger.ch/notes/development/languages/C-C-plus-plus/GCC/create-libraries/index
 
 

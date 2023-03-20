@@ -26,6 +26,8 @@
         "tlpi_hdr.h": "c",
         "become_daemon.h": "c",
         "inet_sockets.h": "c",
-        "signal_ext.h": "c"
+        "signal_ext.h": "c",
+        "cstring": "c",
+        "error_functions.h": "c"
     }
 }
