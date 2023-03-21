@@ -16,11 +16,14 @@ ename.c.inc :
 become_daemon.o : become_daemon.c
 	gcc -c $^ -o $@ -g
 
-libsockets.a : inet_sockets.o
+libsockets.a : inet_sockets.o unix_sockets.o
 	ar rcs $@ $^
 
 inet_sockets.o : inet_sockets.c
-	gcc -c inet_sockets.c -o inet_sockets.o -g
+	gcc -c $^ -o $@ -g
+
+unix_sockets.o : unix_sockets.c
+	gcc -c $^ -o $@ -g
 
 clean :
 	rm -f *.o *.a
