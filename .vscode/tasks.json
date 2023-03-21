@@ -172,5 +172,35 @@
                 "cwd": "${workspaceFolder}//test_utils"
             }
         },
+
+        {
+            "label": "Build test util 09",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test09.c",
+                "-o",
+                "test09"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            }
+        },
+
+        {
+            "label": "Build test util 10",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test10.c",
+                "-o",
+                "test10"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            }
+        },
     ]
 }

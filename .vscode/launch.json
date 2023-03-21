@@ -262,6 +262,52 @@
     },
 
     {
+      "name": "C/C++: build and debug test util 09",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "test_utils/test09",
+      "args": [
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build test util 09"
+    },
+
+    {
+      "name": "C/C++: build and debug test util 10",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "test_utils/test10",
+      "args": [
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build test util 10"
+    },
+
+    {
       "name": "C/C++: build and debug UnixDomain stream client",
       "type": "cppdbg",
       "request": "launch",
