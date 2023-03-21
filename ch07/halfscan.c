@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,8 +71,8 @@ void send_packet(int sd, unsigned short port, struct sockaddr_in source, struct 
 
   /* заполняем TCP-заголовок */
   tcp_hdr.source = getpid();
-  tcp_hdr.dest = htons(port);
-  tcp_hdr.seq = htons(getpid() + port);
+  tcp_hdr.dest = htons( port );
+  tcp_hdr.seq = htons( getpid() + port );
   tcp_hdr.ack_seq = 0;
   tcp_hdr.res1 = 0;
   tcp_hdr.doff = 5;
@@ -91,13 +93,13 @@ void send_packet(int sd, unsigned short port, struct sockaddr_in source, struct 
   pseudo_hdr.dest_address   = servaddr.sin_addr.s_addr;
   pseudo_hdr.place_holder   = 0;
   pseudo_hdr.protocol       = IPPROTO_TCP;
-  pseudo_hdr.length         = htons(sizeof(struct tcphdr));
+  pseudo_hdr.length         = htons( sizeof(struct tcphdr) );
   
   /* копируем заполненный TCP-заголовок после псевдозаголока */
-  bcopy(&tcp_hdr, &pseudo_hdr.tcp, sizeof(struct tcphdr));
+  bcopy( &tcp_hdr, &pseudo_hdr.tcp, sizeof(struct tcphdr) );
   
   /* вычисляем контрольную сумму в TCP-заголовке */
-  tcp_hdr.check = in_cksum((unsigned short *)&pseudo_hdr, sizeof(struct pseudo_hdr));
+  tcp_hdr.check = in_cksum( (unsigned short *) &pseudo_hdr, sizeof(struct pseudo_hdr) );
 
 
   /* отправляем TCP-пакет */
@@ -120,7 +122,7 @@ void send_packet(int sd, unsigned short port, struct sockaddr_in source, struct 
 int recv_packet(int sd)
 {
   char recvbuf[1500];
-  struct tcphdr *tcphdr = (struct tcphdr *) (recvbuf + sizeof(struct iphdr));
+  struct tcphdr *tcphdr = (struct tcphdr *) (recvbuf + sizeof(struct iphdr) );
 
   while(1)
   {
@@ -131,7 +133,7 @@ int recv_packet(int sd)
     if (tcphdr->dest == getpid()) {
 
       if(tcphdr->syn == 1 && tcphdr->ack == 1)
-	    return 1;
+	      return 1;
       else
         return 0;
     }
@@ -151,15 +153,16 @@ int main(int argc, char *argv[])
   int port, portlow, porthigh;
   unsigned int dest;
   struct sockaddr_in source;
-  struct servent* 
-srvport;
+  struct servent* srvport;
 
   if (argc != 4) {
+
     fprintf(stderr, "Usage: %s <address> <portlow> <porthigh>\n", argv[0]);
     exit(-1);
   }
 
   hp = gethostbyname(argv[1]); 
+  
   if (hp == NULL) {
     herror("gethostbyname() failed");
     exit(-1);
@@ -168,8 +171,8 @@ srvport;
   portlow  = atoi(argv[2]);
   porthigh = atoi(argv[3]);
 
-  if( (sd = socket(PF_INET, SOCK_RAW, IPPROTO_TCP)) < 0)
- {
+  if( ( sd = socket(PF_INET, SOCK_RAW, IPPROTO_TCP) ) < 0)
+  {
     perror("socket() failed");
     exit(-1);
   }
@@ -179,12 +182,17 @@ srvport;
   /* получаем IP-адрес интерфейса и заносим его в адресную структуру source */  
   sprintf(ifr->ifr_name, "%s", DEVICE);
   ioctl(sd, SIOCGIFADDR, ifr);
-  memcpy((char*)&source, (char*)&(ifr->ifr_addr), sizeof(struct sockaddr));
+
+  memcpy( (char*) &source, (char*) &(ifr->ifr_addr), sizeof(struct sockaddr) );
 
   for (port = portlow; port <= porthigh; port++) {
+  
     send_packet(sd, port, source, hp);
+  
     if (recv_packet(sd) == 1) {
+  
       srvport = getservbyport(htons(port), "tcp");
+  
       if (srvport == NULL)
         printf("Open: %d (unknown)\n", port);
       else
@@ -195,7 +203,6 @@ srvport;
   }
 
   close (sd);
-
 
   return 0;
 }

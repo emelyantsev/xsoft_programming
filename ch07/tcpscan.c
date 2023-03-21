@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
 
     if (connect(sd, (struct sockaddr *) &servaddr, sizeof(servaddr) ) == 0) {
       
-      srvport = getservbyport(htons(port), "tcp");
+      srvport = getservbyport( htons(port), "tcp");
       
       if (srvport == NULL)
         printf("Open: %d (unknown)\n", port);

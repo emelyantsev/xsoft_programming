@@ -26,7 +26,10 @@ gcc -g win95ping.c -o win95ping
 
 --- Chapter 07 ----
 
+gcc halfscan.c -o halfscan -g
 gcc ptscan.c -o ptscan -lpthread
+gcc scan-nonblock.c -o scan-nonblock -g
+
 
 
 --- Chapter 09 ----
