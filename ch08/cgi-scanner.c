@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -64,9 +66,10 @@ int main(int argc, char* argv[])
   fprintf(stderr, " Start scanning \"%s\"...\n", argv[1]);
   fprintf(stderr, "======================================\n");
 
-  while (fgets(buf,250,fd) != NULL) {
+  while (fgets(buf, 250, fd) != NULL) {
 
     buf[strcspn(buf, "\r\n\t")] = 0;
+    
     if (strlen(buf) == 0) continue;
 
     if ( (sd = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
