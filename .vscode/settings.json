@@ -28,6 +28,9 @@
         "inet_sockets.h": "c",
         "signal_ext.h": "c",
         "cstring": "c",
-        "error_functions.h": "c"
+        "error_functions.h": "c",
+        "system_error": "c",
+        "stdint.h": "c",
+        "bpf.h": "c"
     }
 }

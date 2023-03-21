@@ -33,7 +33,10 @@ gcc scan-nonblock.c -o scan-nonblock -g
 
 
 --- Chapter 09 ----
-
+gcc sklsniff.c -o sklsniff -g
+gcc sklsniff_bpf.c -o sklsniff_bpf -g
+gcc sklsniff_pcap.c -o sklsniff_pcap -g -lpcap
+gcc sklsniff_arp.c -o sklsniff_arp -g
 gcc sklsniff_lnet.c -o sklsniff_lnet `libnet-config --defines` `libnet-config --libs` `libnet-config --cflags`
 
 

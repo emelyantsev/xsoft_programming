@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h>
@@ -17,6 +19,7 @@
 #include <sys/ioctl.h>
 
 #include <time.h>
+#include <unistd.h>
 
 #define DEVICE "eth0"
 
@@ -151,11 +154,13 @@ int main(int argc, char *argv[])
     if(!strcmp(argv[2], "random")
 )
     {
+
       sprintf(s_eth_addr, "%x:%x:%x:%x:%x:%x", random() % 255, random() % 255, random() % 255, random() % 255, random() % 255, random() % 255);
       get_mac(pkt.ar_sha, s_eth_addr);
       memcpy(pkt.h_source, &pkt.ar_sha, 6);
     }
     else {
+
       get_mac(pkt.ar_sha, argv[2]);
       memcpy(pkt.h_source, &pkt.ar_sha, 6);
     }
@@ -166,7 +171,8 @@ int main(int argc, char *argv[])
     memcpy(pkt.ar_tip, &targ_in_addr, 4);
 
 
-    if(sendto(sd, &pkt,sizeof(pkt),0, (struct sockaddr *)&s_ll,sizeof(struct sockaddr_ll)) < 0) {
+    if(sendto(sd, &pkt, sizeof(pkt),0, (struct sockaddr *) &s_ll,sizeof(struct sockaddr_ll) ) < 0) {
+      
       perror("sendto() failed");
       exit(-1);
     }

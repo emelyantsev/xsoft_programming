@@ -11,12 +11,16 @@
 #include <linux/if_ether.h>   /* The L2 protocols */
 #endif
 #include <sys/ioctl.h>
+
+#include <arpa/inet.h>
+
 #include <linux/in.h>
 #include <linux/if.h>
 #include <linux/ip.h>
 #include <linux/tcp.h>
 #include <linux/udp.h>
 #include <linux/icmp.h>
+
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -26,7 +30,7 @@
 #define IP_MF 0x2000
 
 struct arphdr
- {
+{
   unsigned short ar_hrd;		/* format of hardware address	*/
   unsigned short ar_pro;		/* format of protocol address	*/
   unsigned char	 ar_hln;		/* length of hardware address	*/
@@ -52,7 +56,7 @@ void PrintHeaders(void *data)
   struct udphdr *udp;
   struct icmphdr *icmp;
 
-  memcpy ((char *) &eth, data, sizeof(struct ethhdr));
+  memcpy ( (char *) &eth, data, sizeof(struct ethhdr) );
   
   printf("==ETHERNET_HEADER============================\n");
   printf("MAC destination       ");
@@ -64,18 +68,19 @@ void PrintHeaders(void *data)
   printf(":%.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n",
 		eth.h_dest[0], eth.h_dest[1], eth.h_dest[2],
 		eth.h_dest[3], eth.h_dest[4], eth.h_dest[5]);
+  
   printf("Packet type ID field  :%#x\n", ntohs(eth.h_proto));
 
-  if ((ntohs(eth.h_proto) == ETH_P_ARP) || 
-      (ntohs(eth.h_proto) == ETH_P_RARP)) {
-    arp = (struct arphdr *)(data + sizeof(struct ethhdr));
+  if ( ( ntohs( eth.h_proto ) == ETH_P_ARP) || ( ntohs( eth.h_proto) == ETH_P_RARP ) ) {
+
+    arp = (struct arphdr *) (data + sizeof(struct ethhdr) ) ;
 
     printf("==ARP_HEADER=================================\n");
-    printf("Format of hardware address     :%d\n", htons(arp->ar_hrd));
+    printf("Format of hardware address     :%d\n", htons(arp->ar_hrd) );
     printf("Format of protocol address     :%d\n", arp->ar_pro);
     printf("Length MAC                     :%d\n", arp->ar_hln);
     printf("Length IP                      :%d\n", arp->ar_pln);
-    printf("ARP opcode                     :%d\n", htons(arp->ar_op));
+    printf("ARP opcode                     :%d\n", htons(arp->ar_op) );
     printf("Sender hardware address        :%.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n",
 						       arp->ar_sha[0],
 						       arp->ar_sha[1],
@@ -109,7 +114,8 @@ void PrintHeaders(void *data)
 
     if (ntohs(eth.h_proto) == ETH_P_IP)
     {
-      ip = (struct iphdr *)(data + sizeof(struct ethhdr));
+
+      ip = (struct iphdr *) (data + sizeof(struct ethhdr) );
 
       printf("==IP_HEADER==================================\n");
       printf("IP version            :%d\n", ip->version);
@@ -122,9 +128,9 @@ void PrintHeaders(void *data)
       printf("DF                    :%d\n", ntohs(ip->frag_off)&IP_DF?1:0);
       printf("TTL                   :%d\n", ip->ttl);
       printf("Protocol              :%d\n", ip->protocol);
-     // printf("IP source             :%s\n", inet_ntoa(   *( (struct in_addr *) &(ip->saddr) )   )   );
+      printf("IP source             :%s\n", inet_ntoa(   *( (struct in_addr *) &(ip->saddr) )   )   );
 
-     // printf("IP destination        :%s\n", inet_ntoa( *( (struct in_addr *) &(ip->daddr) )   ) );
+      printf("IP destination        :%s\n", inet_ntoa( *( (struct in_addr *) &(ip->daddr) )   ) );
 	
       if ((ip->protocol) == IPPROTO_TCP) {
       
@@ -145,11 +151,11 @@ void PrintHeaders(void *data)
         printf("ECE:%d,", tcp->ece);
         printf("CWR:%d\n", tcp->cwr);
         printf("Window              :%d\n", ntohs(tcp->window));
-	    printf("Urgent pointer      :%d\n", tcp->urg_ptr);
+	      printf("Urgent pointer      :%d\n", tcp->urg_ptr);
       }
 
       if ((ip->protocol) == IPPROTO_UDP) {	
-        udp = (struct udphdr *)(data + sizeof(struct ethhdr) + sizeof(struct iphdr));
+        udp = (struct udphdr *) (data + sizeof(struct ethhdr) + sizeof(struct iphdr));
         printf("==UDP_HEADER=================================\n");
         printf("Port source        :%d\n", ntohs(udp->source));
         printf("Port destination   :%d\n", ntohs(udp->dest));
@@ -158,7 +164,7 @@ void PrintHeaders(void *data)
 
       if ((ip->protocol) == IPPROTO_ICMP) {	
 
-        icmp = (struct icmphdr *)(data + sizeof(struct ethhdr) + sizeof(struct iphdr));
+        icmp = (struct icmphdr *) (data + sizeof(struct ethhdr) + sizeof(struct iphdr));
 	    
         printf("==ICMP_HEADER================================\n");
         printf("Type        :%d\n", icmp->type);
@@ -183,7 +189,7 @@ void Dump(void* data, int len)
   for (i = 0; i < len; i++)
   {
     if (poz % 16 == 0)
- {
+    {
       printf("  %s\n%04X: ", str, poz);
       memset(str, 0, 17);
     }

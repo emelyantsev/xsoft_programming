@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <libnet.h>
 
 #include <time.h>
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
   }
 
   ipdst = inet_addr(argv[3]);
-  macdst = libnet_hex_aton((int8_t*)argv[4], &r);
+  macdst = libnet_hex_aton( (int8_t*) argv[4], &r );
   
   if (argc == 6)
     period = atoi(argv[5]);
@@ -63,9 +65,9 @@ int main(int argc, char *argv[])
                 4,              	/* proto addr size */ 
                 1, 	            	/* ARP OPCODE */
                 macsrc,         	/* source HW addr */
-                (u_int8_t*)&ipsrc,      /* src proto addr */
+                (u_int8_t*) &ipsrc,      /* src proto addr */
                 macdst,        		/* dst HW addr */
-                (u_int8_t*)&ipdst,      /* dst IP addr */
+                (u_int8_t*) &ipdst,      /* dst IP addr */
                 NULL,           	/* no payload */
                 0,              	/* payload length */
                 l,			/* libnet tag */

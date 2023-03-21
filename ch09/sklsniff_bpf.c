@@ -1,3 +1,5 @@
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
@@ -10,6 +12,10 @@
 #include <linux/if_packet.h>
 #include <linux/if_ether.h>   /* The L2 protocols */
 #endif
+
+
+#include <arpa/inet.h>
+
 #include <sys/ioctl.h>
 #include <linux/in.h>
 #include <linux/if.h>
@@ -20,9 +26,11 @@
 #include <net/bpf.h>
 #include <linux/swab.h>
 
-#include <stdlib.h>
-//#include <arpa/inet.h>
 
+#include <unistd.h>
+
+#include <stdlib.h>
+#include <stdint.h>
 
 
 #define DEVICE "eth0"
