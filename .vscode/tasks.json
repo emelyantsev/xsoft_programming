@@ -100,6 +100,25 @@
             }
         },
         {
+            "label": "Build ch12_sections",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "sections.c",
+                "-o",
+                "sections"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//ch12"
+            },
+            "detail": "compiler: gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Build test util 01",
             "type": "cppbuild",
             "command": "gcc",
