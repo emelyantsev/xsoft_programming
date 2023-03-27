@@ -31,6 +31,8 @@
         "error_functions.h": "c",
         "system_error": "c",
         "stdint.h": "c",
-        "bpf.h": "c"
+        "bpf.h": "c",
+        "math.h": "c",
+        "stdio.h": "c"
     }
 }
