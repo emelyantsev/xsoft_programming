@@ -74,6 +74,17 @@ gcc -g icmpsend.c -o icmpsend
 
 -------------------
 
+
+
+---- Chapter 16 ----
+
+gcc program.c -o programA -no-pie
+
+To know why need -no-pie option
+https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/34522357#34522357
+
+
+
 ------ test utils ----
 
 gcc -g test01.c -o test01

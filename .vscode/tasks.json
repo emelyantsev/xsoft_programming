@@ -119,6 +119,25 @@
             }
         },
         {
+            "label": "Build ch16_elfinfector",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "elfinfector.c",
+                "-o",
+                "elfinfector"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//ch16"
+            },
+            "detail": "compiler: gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Build test util 01",
             "type": "cppbuild",
             "command": "gcc",
