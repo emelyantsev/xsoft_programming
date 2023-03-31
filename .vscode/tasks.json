@@ -221,5 +221,20 @@
                 "cwd": "${workspaceFolder}//test_utils"
             }
         },
+
+        {
+            "label": "Build test util 15",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test15.c",
+                "-o",
+                "test15"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            }
+        },
     ]
 }
