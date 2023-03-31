@@ -33,6 +33,7 @@
         "stdint.h": "c",
         "bpf.h": "c",
         "math.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "string.h": "c"
     }
 }
