@@ -35,6 +35,7 @@
         "math.h": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "elf.h": "c"
+        "elf.h": "c",
+        "utmp.h": "c"
     }
 }
