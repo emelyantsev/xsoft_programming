@@ -36,6 +36,13 @@
         "stdio.h": "c",
         "string.h": "c",
         "elf.h": "c",
-        "utmp.h": "c"
+        "utmp.h": "c",
+        "module.h": "c",
+        "kernel.h": "c",
+        "init.h": "c",
+        "int-ll64.h": "c",
+        "syscall.h": "c",
+        "unistd.h": "c",
+        "unistd_64.h": "c"
     }
 }

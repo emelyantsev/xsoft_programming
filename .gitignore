@@ -7,6 +7,12 @@
 *.a
 *.so
 *.out
+*.ko
+*.mod
+*.cmd
+*.symvers
+*.order
+*.mod.c
 
 peda-session*.txt
 .gdb_history
