@@ -534,6 +534,29 @@
     },
 
     {
+      "name": "C/C++: build and debug poll_pipes",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "A_Sockets/ch63_02/poll_pipes",
+      "args": [ "10", "3"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+
+    {
       "name": "C/C++: build and debug socknames tool",
       "type": "cppdbg",
       "request": "launch",
