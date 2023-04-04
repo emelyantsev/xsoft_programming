@@ -43,6 +43,17 @@
         "int-ll64.h": "c",
         "syscall.h": "c",
         "unistd.h": "c",
-        "unistd_64.h": "c"
+        "unistd_64.h": "c",
+        "exception": "c",
+        "memory_resource": "c",
+        "fstream": "c",
+        "iosfwd": "c",
+        "new": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "stop_token": "c",
+        "streambuf": "c",
+        "errno.h": "c",
+        "stat.h": "c"
     }
 }

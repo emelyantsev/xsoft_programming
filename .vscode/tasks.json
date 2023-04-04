@@ -255,5 +255,21 @@
                 "cwd": "${workspaceFolder}//test_utils"
             }
         },
+
+        {
+            "label": "Build logserver",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "logserver.c",
+                "-o",
+                "logserver"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils//logtools"
+            }
+        },
+        
     ]
 }

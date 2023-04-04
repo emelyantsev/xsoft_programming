@@ -511,6 +511,29 @@
     },
 
     {
+      "name": "C/C++: build and debug t_select",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "A_Sockets/ch63_01/t_select",
+      "args": [ "10", "0r"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+
+    {
       "name": "C/C++: build and debug socknames tool",
       "type": "cppdbg",
       "request": "launch",
@@ -533,5 +556,29 @@
       ]
     },
       
+    {
+      "name": "C/C++: build and debug logserver",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "test_utils/logtools/logserver",
+      "args": [
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build logserver"
+    },
+
+
     ]
 }
