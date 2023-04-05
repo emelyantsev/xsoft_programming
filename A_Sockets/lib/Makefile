@@ -1,7 +1,7 @@
 all : libcommon.a libsockets.a
 
-libcommon.a : error_funcions.o get_num.o become_daemon.o
-	ar rcs libcommon.a error_functions.o get_num.o become_daemon.o
+libcommon.a : error_funcions.o get_num.o become_daemon.o tty_functions.o
+	ar rcs libcommon.a error_functions.o get_num.o become_daemon.o tty_functions.o
 
 error_funcions.o : ename.c.inc error_functions.c
 	gcc -c error_functions.c -o error_functions.o -g
@@ -14,6 +14,9 @@ ename.c.inc :
 	echo 1>&2 "ename.c.inc built"
 
 become_daemon.o : become_daemon.c
+	gcc -c $^ -o $@ -g
+
+tty_functions.o : tty_functions.c
 	gcc -c $^ -o $@ -g
 
 libsockets.a : inet_sockets.o unix_sockets.o

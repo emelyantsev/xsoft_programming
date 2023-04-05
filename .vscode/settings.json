@@ -54,6 +54,10 @@
         "stop_token": "c",
         "streambuf": "c",
         "errno.h": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "tty_functions.h": "c",
+        "ctype.h": "c",
+        "fcntl.h": "c",
+        "termios.h": "c"
     }
 }
