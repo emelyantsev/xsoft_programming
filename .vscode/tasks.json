@@ -257,6 +257,21 @@
         },
 
         {
+            "label": "Build test util 16",
+            "type": "cppbuild",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "test16.c",
+                "-o",
+                "test16"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}//test_utils"
+            }
+        },
+
+        {
             "label": "Build logserver",
             "type": "cppbuild",
             "command": "gcc",
