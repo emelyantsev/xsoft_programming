@@ -22,6 +22,7 @@ This repository is based on the book [Иван Скляров: Программ�
 
 - [Sockets](https://github.com/emelyantsev/xsoft_programming/tree/main/A_Sockets)
 - [Kernel modules](https://github.com/emelyantsev/xsoft_programming/tree/main/B_KernelModules/01)
+- [UDP server with advanced features](https://github.com/emelyantsev/xsoft_programming/tree/main/C_logtools)
 
 The parts about exploits and kernel modules are significantly outdated and should be upgraded for modern x64 systems and latest kernel versions.
 
