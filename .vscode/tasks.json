@@ -282,7 +282,7 @@
                 "logserver"
             ],
             "options": {
-                "cwd": "${workspaceFolder}//test_utils//logtools"
+                "cwd": "${workspaceFolder}//C_logtools"
             }
         },
         

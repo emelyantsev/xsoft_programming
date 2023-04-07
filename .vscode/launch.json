@@ -650,7 +650,7 @@
       "name": "C/C++: build and debug logserver",
       "type": "cppdbg",
       "request": "launch",
-      "program": "test_utils/logtools/logserver",
+      "program": "C_logtools/logserver",
       "args": [
       ],
       "stopAtEntry": true,

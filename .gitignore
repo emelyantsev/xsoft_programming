@@ -13,6 +13,7 @@
 *.symvers
 *.order
 *.mod.c
+*.log
 
 peda-session*.txt
 .gdb_history
